@@ -11,7 +11,6 @@
 
 use core::marker::PhantomData;
 use usb_device::class_prelude::{InterfaceNumber, StringIndex, UsbBus, UsbBusAllocator};
-use usb_device::LangID;
 
 // Vendor specific class
 const CLASS_VENDOR_SPECIFIC: u8 = 0xFF;
@@ -95,7 +94,7 @@ impl<B: UsbBus, C: Config> usb_device::class::UsbClass<B> for PicoToolReset<'_, 
         )
     }
 
-    fn get_string(&self, index: StringIndex, _lang_id: LangID) -> Option<&str> {
+    fn get_string(&self, index: StringIndex, _lang_id: u16) -> Option<&str> {
         (index == self.str_idx).then_some("Reset")
     }
 
